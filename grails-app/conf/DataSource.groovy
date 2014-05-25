@@ -20,9 +20,18 @@ environments {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 //            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
             driverClassName = 'com.mysql.jdbc.Driver'
-            url = 'jdbc:mysql://localhost/online_editor?useUnicode=yes&characterEncoding=UTF-8'
-            username = 'root'
-            password = '123456'
+            url = System.getenv('DATABASE_URL')
+            if (!url) {
+                url = 'jdbc:mysql://localhost/online_editor?useUnicode=yes&characterEncoding=UTF-8'
+            }
+            username = System.getenv('DB_USER')
+            if (!username) {
+                username = 'root'
+            }
+            password = System.getenv('DB_PASSWORD')
+            if (!password) {
+                password = '123456'
+            }
         }
     }
     test {
@@ -35,9 +44,18 @@ environments {
         dataSource {
             driverClassName = 'com.mysql.jdbc.Driver'
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/online_editor?useUnicode=yes&characterEncoding=UTF-8"
-            username = 'root'
-            password = '123456'
+            url = System.getenv('DATABASE_URL')
+            if (!url) {
+                url = 'jdbc:mysql://localhost/online_editor?useUnicode=yes&characterEncoding=UTF-8'
+            }
+            username = System.getenv('DB_USER')
+            if (!username) {
+                username = 'root'
+            }
+            password = System.getenv('DB_PASSWORD')
+            if (!password) {
+                password = '123456'
+            }
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

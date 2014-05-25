@@ -25,4 +25,14 @@ class BigTable {
         this.version += 1
         this.totalCount += 1
     }
+
+    def static getOrCreate(Account user, String name) {
+        def table = findByOwnerAndName(user, name)
+        if (table != null) {
+            return table
+        }
+        table = new BigTable(name: name, owner: user)
+        table.save()
+        return table
+    }
 }

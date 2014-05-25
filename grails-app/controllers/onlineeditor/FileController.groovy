@@ -6,11 +6,7 @@ import org.markdown4j.Markdown4jProcessor
 
 /**
  * TODO:
- * * add file direct view url
- * * add markdown rendered file view url
  * * add markdown preview
- * * add category
- * * add datastore
  */
 class FileController extends BaseController {
 
@@ -18,7 +14,7 @@ class FileController extends BaseController {
 
     def static allowedMethods = [createOrUpdate: 'POST', doCreate: 'POST', changeAcl: 'POST']
 
-    def static markdownProcessor = new Markdown4jProcessor()
+    MarkDownService markDownService
 
     def list() {
         def user = currentUser()
@@ -70,7 +66,7 @@ class FileController extends BaseController {
         file.visitCount += 1
         file.save()
         response.setContentType(file.mimeType)
-        def html = markdownProcessor.process(file.content)
+        def html = markDownService.renderMarkDown(file.content)
         render text: html, encoding: file.encoding
     }
 

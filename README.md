@@ -17,6 +17,11 @@ A simple web file editor, and you can use these file otherwhere
 
 * add cache(example file visit and markdown rendered, many can just put in /dev/shm)
 * DataStore (a simulation of NoSQL BigTable)
-* API to access Online Files and DataStore
+* API to access Online Files and DataStore(use basic-auth and RPC)
 * logs and statistics
 * use pia-cloud or others as backend
+* a simple platform to let `app` binding to a Bucket and Table, providing user who installed it use the app with own data, apps may be like blog, gist, picture paster, forum, etc.
+* provide a simple blog system and user can generate static blog site with different blog themes, to, eg. github pages or other
+* port the Paginator to use HQL
+
+

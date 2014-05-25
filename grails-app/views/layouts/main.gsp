@@ -5,7 +5,8 @@
                 <a class="blog-nav-item active" href="<g:createLink controller="site" action="index"/>">Home</a>
                 <a class="blog-nav-item" href="<g:createLink controller="file" action="create"/>">New File</a>
                 <a class="blog-nav-item" href="<g:createLink controller="site" action="profile"/>">Profile</a>
-                <!--<a class="blog-nav-item" href="#">Account Settings</a>-->
+                <a class="blog-nav-item"
+                   href="<g:createLink controller="blog" action="index" params="[authorName: 'zoowii']"/>">Blog</a>
                 <!--<a class="blog-nav-item" href="#">Administration</a>-->
                 <a class="blog-nav-item" href="#">About</a>
                 <g:if test="${!session.username}">

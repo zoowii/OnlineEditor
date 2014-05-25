@@ -6,6 +6,13 @@ class EntityColumn {
     static final BOOLEAN_TYPE = 'boolean'
     static final DATE_TYPE = 'date'
     static final BINARY_TYPE = 'binary'  // not recommended and not supported now
+    def static columnTypes = [
+            ['string', 'String'],
+            ['number', 'Number'],
+            ['boolean', 'Boolean'],
+            ['date', 'Date'],
+            ['binary', 'Binary']
+    ]
     String id = UUID.randomUUID().toString()
     Integer version = 1
     Date createdTime = new Date()

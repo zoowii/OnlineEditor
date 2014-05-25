@@ -15,6 +15,10 @@ class BaseController {
         redirect(uri: getLoginUrl())
     }
 
+    def redirectToIndex() {
+        redirect(controller: 'site', action: 'index')
+    }
+
     def loginAsUser(Account account) {
         session.username = account.userName
     }
@@ -63,7 +67,7 @@ class BaseController {
 //            return false
 //        }
         if (!currentUser()) {
-            println(request.getHeaders('Accept'))
+            // TODO: try basic-auth login
             if (WebCommon.isAjaxRequest(request)) {
                 ajaxFail('login required')
             } else {

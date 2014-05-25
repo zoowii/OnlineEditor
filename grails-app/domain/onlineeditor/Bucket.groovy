@@ -1,7 +1,5 @@
 package onlineeditor
 
-import com.zoowii.online_editor.utils.Paginator
-
 /**
  * every user can has some buckets, with files stored in a bucket
  * TODO: every bucket can has its ACL permissions
@@ -21,5 +19,15 @@ class Bucket {
     }
     static belongsTo = [owner: Account]
     static hasMany = [files: CloudFile]
+
+    def static getOrCreate(Account user, String name) {
+        def bucket = findByOwnerAndName(user, name)
+        if (bucket != null) {
+            return bucket
+        }
+        bucket = new Bucket(name: name, owner: user)
+        bucket.save()
+        return bucket
+    }
 
 }
