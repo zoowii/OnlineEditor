@@ -23,5 +23,8 @@ A simple web file editor, and you can use these file otherwhere
 * a simple platform to let `app` binding to a Bucket and Table, providing user who installed it use the app with own data, apps may be like blog, gist, picture paster, forum, etc.
 * provide a simple blog system and user can generate static blog site with different blog themes, to, eg. github pages or other
 * port the Paginator to use HQL
+* add a blog publisher app
+* add disqus/duoshuo or other comment service
+* add search to app (if not deploy in static site)
 
 

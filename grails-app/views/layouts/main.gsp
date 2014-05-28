@@ -5,19 +5,26 @@
                 <a class="blog-nav-item active" href="<g:createLink controller="site" action="index"/>">Home</a>
                 <a class="blog-nav-item" href="<g:createLink controller="file" action="create"/>">New File</a>
                 <a class="blog-nav-item" href="<g:createLink controller="site" action="profile"/>">Profile</a>
-                <a class="blog-nav-item"
-                   href="<g:createLink controller="blog" action="index" params="[authorName: 'zoowii']"/>">Blog</a>
-                <!--<a class="blog-nav-item" href="#">Administration</a>-->
+                <g:if test="${!session.username}">
+                    <a class="blog-nav-item"
+                       href="<g:createLink controller="blog" action="index" params="[authorName: 'zoowii']"/>">Blog</a>
+                </g:if>
+                <g:else>
+                    <a class="blog-nav-item"
+                       href="<g:createLink controller="blog" action="index"
+                                           params="[authorName: session.username]"/>">Blog</a>
+                </g:else>
+            <!--<a class="blog-nav-item" href="#">Administration</a>-->
                 <a class="blog-nav-item" href="#">About</a>
                 <g:if test="${!session.username}">
                     <a class="blog-nav-item" href="<g:createLink controller="site" action="register"/>">Sign Up</a>
                     <a class="blog-nav-item" href="<g:createLink controller="site" action="loginPage"/>">Sign In</a>
                 </g:if>
-                <g:if test="${session.username}">
+                <g:else>
                     <a class="blog-nav-item" href="<g:createLink controller="site" action="logout"/>">Sign Out</a>
                     <a class="blog-nav-item" href="<g:createLink controller="site" action="profile"/>"
                        style="float: right">Welcome, ${session.username}</a>
-                </g:if>
+                </g:else>
             </nav>
         </div>
     </div>

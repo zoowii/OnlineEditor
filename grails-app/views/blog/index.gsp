@@ -2,7 +2,7 @@
     <title>${blogTitle}</title>
     <asset:stylesheet src="blog/article.css"/>
     <g:each in="${articles}" var="article" status="counter">
-        <h1>${article?.title}</h1>
+        <h1><a href="<g:createLink action="view" params="[id: article?.id]"/>">${article?.title}</a></h1>
         <blockquote>
             <p>
                 <g:each in="${article?.tags}" var="tag">
