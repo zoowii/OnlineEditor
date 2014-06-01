@@ -58,13 +58,13 @@ class TableService {
         return entities
     }
 
-    def find(BigTable table, Expr expr) {
+    def Entity find(BigTable table, Expr expr) {
         def query = _createQuery(table, expr)
         def entityCol = query.first(EntityColumn)
         return entityCol?.entity
     }
 
-    def findById(BigTable table, String entityId) {
+    def Entity findById(BigTable table, String entityId) {
         def query = new Query('EntityColumn')
         query = query.eq('entity.id', entityId)
         return query.first(EntityColumn)
@@ -74,15 +74,26 @@ class TableService {
         return getEntityColumn(entity, columnName)?.value
     }
 
-    def getEntityColumn(Entity entity, String columnName) {
+    def EntityColumn getEntityColumn(Entity entity, String columnName) {
         def query = new Query('EntityColumn')
-        query = query.eq('name', columnName)
+        query = query.eq('name', columnName).eq('entity', entity)
         return query.first(EntityColumn)
     }
 
-    def insertColumn(Entity entity, String name, Object value) {
+    def EntityColumn insertColumn(Entity entity, String name, Object value) {
         def col = new EntityColumn(entity: entity, name: name, value: value)
         col.save()
         return col
+    }
+
+    def EntityColumn updateOrCreateColumn(Entity entity, String name, Object value) {
+        EntityColumn col = getEntityColumn(entity, name)
+        if (col == null) {
+            return insertColumn(entity, name, value)
+        } else {
+            col.value = value
+            col.save()
+            return col
+        }
     }
 }

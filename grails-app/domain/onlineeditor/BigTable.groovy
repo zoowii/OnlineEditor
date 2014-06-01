@@ -31,7 +31,7 @@ class BigTable {
         if (table != null) {
             return table
         }
-        table = new BigTable(name: name, owner: user)
+        table = new BigTable(name: name, owner: user, entities: [])
         table.save()
         return table
     }

@@ -24,4 +24,7 @@
         </div>
         <hr/>
     </g:each>
+    <div>
+        ${raw(paginator.getSimplePaginationHtml())}
+    </div>
 </g:applyLayout>

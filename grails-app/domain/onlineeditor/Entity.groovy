@@ -19,4 +19,5 @@ class Entity {
     }
     static hasMany = [columns: EntityColumn]
     static belongsTo = [table: BigTable]
+
 }

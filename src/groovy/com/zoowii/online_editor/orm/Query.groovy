@@ -121,6 +121,19 @@ class Query {
         return [query: queryStr, bindings: bindings, extras: extras]
     }
 
+    def count() {
+        if (this.cls == null) {
+            throw new Exception("you need pass a model class")
+        }
+        return count(this.cls)
+    }
+
+    def count(Class model) {
+//        def query = this.toQuery()
+//        return model.count(query)
+        return 0 // TODO
+    }
+
     def all() {
         if (this.cls == null) {
             throw new Exception("you need pass a model class")

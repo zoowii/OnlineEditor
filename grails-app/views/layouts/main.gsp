@@ -13,6 +13,7 @@
                     <a class="blog-nav-item"
                        href="<g:createLink controller="blog" action="index"
                                            params="[authorName: session.username]"/>">Blog</a>
+                    <a class="blog-nav-item" href="<g:createLink controller="blog" action="admin"/>">Blog Admin</a>
                 </g:else>
             <!--<a class="blog-nav-item" href="#">Administration</a>-->
                 <a class="blog-nav-item" href="#">About</a>

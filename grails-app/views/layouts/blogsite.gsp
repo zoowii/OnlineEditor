@@ -9,7 +9,9 @@
 
     <!--Mobile first-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.jpg')}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="${assetPath(src: 'favicon.png')}">
+    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'favicon.png')}">
     <asset:stylesheet src="bootstrap.min.css"/>
     <asset:stylesheet src="blog/font-awesome.min.css"/>
     <asset:stylesheet src="blog/main.min.css"/>
@@ -44,15 +46,17 @@
                 </a>
             </header>
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <g:if test="${isAuthor}">
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-                <!-- .nav -->
-                <ul class="nav navbar-nav">
-                    <li><a href="<g:createLink controller="site" action="index"/>">Dashboard</a></li>
-                    <li><a href="<g:createLink controller="table"/>">Tables</a></li>
-                    <li><a href="<g:createLink controller="file" action="list"/>">File Manager</a></li>
-                </ul><!-- /.nav -->
-            </div>
+                    <!-- .nav -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="<g:createLink controller="site" action="index"/>">Dashboard</a></li>
+                        <li><a href="<g:createLink controller="table"/>">Tables</a></li>
+                        <li><a href="<g:createLink controller="file" action="list"/>">File Manager</a></li>
+                    </ul><!-- /.nav -->
+                </div>
+            </g:if>
         </div><!-- /.container-fluid -->
     </nav><!-- /.navbar -->
     <header class="head">
@@ -70,7 +74,9 @@
         </div><!-- /.search-bar -->
         <div class="main-bar">
             <h3>
-                <i class="fa fa-home"></i>${blogTitle}
+                <i class="fa fa-home"></i>
+                <a href="${metaInfo.blog_host}" style="color: #ffffff">${metaInfo.site_title}</a>
+
                 <div class="g-plusone" data-annotation="inline" data-width="220"></div>
 
                 <script type="text/javascript">
@@ -98,9 +104,9 @@
         </div>
 
         <div class="user-wrapper">
-            <a class="user-link" href="">
+            <a class="user-link" href="${author.url}">
                 <asset:image src="blog/zoowii.jpg" class="media-object img-thumbnail user-img" alt="User Picture"/>
-                <span class="label label-danger user-label">23</span>
+                <span class="label label-danger user-label">Star</span>
             </a>
 
             <div class="media-body">
@@ -122,11 +128,13 @@
     <ul id="menu" class="">
         <li class="nav-header">Menu</li>
         <li class="nav-divider"></li>
-        <li class="">
-            <a href="<g:createLink controller="site" action="index"/>">
-                <i class="fa fa-dashboard"></i><span class="link-title">Dashboard</span>
-            </a>
-        </li>
+        <g:if test="${isAuthor}">
+            <li class="">
+                <a href="<g:createLink controller="site" action="index"/>">
+                    <i class="fa fa-dashboard"></i><span class="link-title">Dashboard</span>
+                </a>
+            </li>
+        </g:if>
         <li>
             <a href="${author?.url}">
                 <i class="fa fa-font"></i><span class="link-title">&nbsp;${author?.aliasName}</span>
@@ -150,20 +158,22 @@
                 </g:each>
             </ul>
         </li>
-        <li>
-            <a href="<g:createLink controller="table" action="list"/>">
-                <i class="fa fa-table"></i>
-                <span class="link-title">Tables</span>
-            </a>
-        </li>
-        <li>
-            <a href="<g:createLink controller="file" action="list"/>">
-                <i class="fa fa-file"></i>
-                <span class="link-title">
-                    File Manager
-                </span>
-            </a>
-        </li>
+        <g:if test="${isAuthor}">
+            <li>
+                <a href="<g:createLink controller="table" action="list"/>">
+                    <i class="fa fa-table"></i>
+                    <span class="link-title">Tables</span>
+                </a>
+            </li>
+            <li>
+                <a href="<g:createLink controller="file" action="list"/>">
+                    <i class="fa fa-file"></i>
+                    <span class="link-title">
+                        File Manager
+                    </span>
+                </a>
+            </li>
+        </g:if>
         <li>
             <a href="https://github.com/${author?.userName}" target="_blank">
                 <i class="fa fa-columns"></i>
@@ -191,10 +201,20 @@
             </a>
             <ul>
                 <li>
-                    <a href="https://zoowii.com">
-                        <i class="fa fa-angle-right"></i>
-                        <span class="link-title">&nbsp;zoowii.com</span>
-                    </a>
+                    <g:each in="${outLinks}" var="outLink">
+                        <a href="${outLink.url}" title="${outLink.title}">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="link-titl">
+                                &nbsp;
+                                <g:if test="${outLink.name}">
+                                    ${outLink.name}
+                                </g:if>
+                                <g:else>
+                                    ${outLink.url}
+                                </g:else>
+                            </span>
+                        </a>
+                    </g:each>
                 </li>
             </ul>
         </li>

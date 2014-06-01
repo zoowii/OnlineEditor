@@ -15,9 +15,11 @@ class FileLog {
     Account creator
 
     static constraints = {
+        content nullable: true, blank: true
     }
     static mapping = {
         id generator: 'assigned'
+        content type: 'text'
     }
     static belongsTo = [file: CloudFile]
 }

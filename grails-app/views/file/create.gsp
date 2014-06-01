@@ -24,14 +24,19 @@
                 <label>Bucket</label>
                 <select name="bucket" class="form-control">
                     <g:each in="${user ? user.buckets : []}" var="bucket">
-                        <option value="${bucket.id}">${bucket.name}</option>
+                        <g:if test="${bucket == currentBucket}">
+                            <option value="${bucket.id}" selected="selected">${bucket.name}</option>
+                        </g:if>
+                        <g:else>
+                            <option value="${bucket.id}">${bucket.name}</option>
+                        </g:else>
                     </g:each>
                 </select>
             </div>
 
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="is_private"/>
+                    <input type="checkbox" name="is_private" checked=""/>
                     <span class="strong">Private?</span>
                 </label>
             </div>

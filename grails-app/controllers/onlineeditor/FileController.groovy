@@ -26,7 +26,13 @@ class FileController extends BaseController {
     }
 
     def create() {
-        [file: new CloudFile(), user: currentUser()]
+        return createInBucket(null)
+    }
+
+    def createInBucket(String bucketName) {
+        def user = currentUser()
+        def bucket = bucketName ? Bucket.findByNameAndOwner(bucketName, user) : null
+        render view: 'create', model: [file: new CloudFile(), user: user, currentBucket: bucket]
     }
 
     @Transactional

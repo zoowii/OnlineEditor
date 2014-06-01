@@ -86,7 +86,7 @@ body {
         transition: all .3s ease-in-out;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap
+        /*white-space: nowrap*/
     }
 
     .sidebar-right-opened {
