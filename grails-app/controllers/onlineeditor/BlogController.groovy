@@ -11,12 +11,17 @@ class BlogController extends BaseController {
     BucketService bucketService
     TableService tableService
 
-    def beforeInterceptor = [action: this.&auth, except: ['index', 'view', 'tag']]
+    def beforeInterceptor = [action: this.&auth, except: ['index', 'view', 'tag', 'indexOfZoowii']]
 
     def static allowedMethods = [updateMeta: 'POST']
 
+    def indexOfZoowii() {
+        return index('zoowii')
+    }
+
     def index(String authorName) {
         def author = Account.findByUserName(authorName)
+        println(authorName)
         if (!author) {
             flash.error = "Can't find user ${authorName}"
             redirectToIndex()
@@ -32,7 +37,7 @@ class BlogController extends BaseController {
         }
         def metaInfo = blogService.getBlogMetaInfo(author)
         def outLinks = blogService.getBlogOutLinks(author)
-        [articles: articles, outLinks: outLinks, paginator: paginator, author: author, blogTitle: blogSiteTitle, tags: tags, metaInfo: metaInfo, isAuthor: author == currentUser()]
+        render view: 'index', model: [articles: articles, outLinks: outLinks, paginator: paginator, author: author, blogTitle: blogSiteTitle, tags: tags, metaInfo: metaInfo, isAuthor: author == currentUser()]
     }
 
     def tag(String authorName, String name) {

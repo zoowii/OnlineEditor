@@ -9,7 +9,7 @@ class UrlMappings {
             }
         }
 
-        "/"(controller: "blog", action: 'index', params: [authorName: 'zoowii'])
+        "/"(controller: "blog", action: 'indexOfZoowii')
         "500"(view: '/error')
     }
 }

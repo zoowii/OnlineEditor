@@ -41,22 +41,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="index.html" class="navbar-brand">
+                <a href="${metaInfo.blog_host}" class="navbar-brand">
                     <asset:image src="blog/logo.png"/>
                 </a>
             </header>
 
-            <g:if test="${isAuthor}">
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-                    <!-- .nav -->
-                    <ul class="nav navbar-nav">
+                <!-- .nav -->
+                <ul class="nav navbar-nav">
+                    <li><a href="${author.url}"><g:message code="blog.layout.aboutAuthor"/></a></li>
+                    <li><a href="https://github.com/${author.userName}">Github</a></li>
+                    <g:if test="${isAuthor}">
                         <li><a href="<g:createLink controller="site" action="index"/>">Dashboard</a></li>
                         <li><a href="<g:createLink controller="table"/>">Tables</a></li>
                         <li><a href="<g:createLink controller="file" action="list"/>">File Manager</a></li>
-                    </ul><!-- /.nav -->
-                </div>
-            </g:if>
+                    </g:if>
+                </ul><!-- /.nav -->
+            </div>
+
         </div><!-- /.container-fluid -->
     </nav><!-- /.navbar -->
     <header class="head">
@@ -112,7 +115,7 @@
             <div class="media-body">
                 <h5 class="media-heading">${author.userName}</h5>
                 <ul class="list-unstyled user-info">
-                    <li><a href="#">Author</a></li>
+                    <li><a href="${author.url}"><g:message code="site.author"/></a></li>
                     <li>Last Access :
                         <br>
                         <small>
@@ -126,7 +129,7 @@
 
     <!-- #menu -->
     <ul id="menu" class="">
-        <li class="nav-header">Menu</li>
+        <li class="nav-header"><g:message code="blog.layout.menu"/></li>
         <li class="nav-divider"></li>
         <g:if test="${isAuthor}">
             <li class="">
@@ -144,7 +147,7 @@
             <a href="javascript:;">
                 <i class="fa fa-tasks"></i>
                 <span class="link-title">
-                    Tags
+                    <g:message code="blog.layout.tags"/>
                 </span>
                 <span class="fa arrow"></span>
             </a>
@@ -162,14 +165,14 @@
             <li>
                 <a href="<g:createLink controller="table" action="list"/>">
                     <i class="fa fa-table"></i>
-                    <span class="link-title">Tables</span>
+                    <span class="link-title"><g:message code="site.tables"/></span>
                 </a>
             </li>
             <li>
                 <a href="<g:createLink controller="file" action="list"/>">
                     <i class="fa fa-file"></i>
                     <span class="link-title">
-                        File Manager
+                        <g:message code="site.fileManager"/>
                     </span>
                 </a>
             </li>
@@ -187,7 +190,7 @@
             <a href="<g:createLink controller="site" action="loginPage"/>">
                 <i class="fa fa-sign-in"></i>
                 <span class="link-title">
-                    Login Page
+                    <g:message code="site.login"/>
                 </span>
             </a>
         </li>
@@ -195,7 +198,7 @@
             <a href="javascript:;">
                 <i class="fa fa-code"></i>
                 <span class="link-title">
-                    Out Links
+                    <g:message code="blog.layout.outLinks"/>
                 </span>
                 <span class="fa arrow"></span>
             </a>
@@ -219,7 +222,7 @@
             </ul>
         </li>
         <li class="nav-divider"></li>
-        <li class="nav-header">Ads</li>
+        <li class="nav-header"><g:message code="blog.layout.ads"/></li>
         <li class="nav-divider"></li>
         <li>
             <a href="https://www.linode.com/?r=ac463147d488b8d158bddc1ef75ff258bf18c863">

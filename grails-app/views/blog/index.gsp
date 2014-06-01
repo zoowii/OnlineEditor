@@ -13,7 +13,8 @@
             <p>${article.summary}</p>
 
             <div class="blog-author-area">
-                <span class="blog-author-field">Author: <a href="${author?.url}">${article.author?.aliasName}</a></span>
+                <span class="blog-author-field"><g:message code="site.author"/>: <a
+                        href="${author?.url}">${article.author?.aliasName}</a></span>
                 &nbsp;&nbsp;&nbsp;
                 <span class="blog-date-field">${article?.date?.format('yyyy-MM-dd')}</span>
             </div>
