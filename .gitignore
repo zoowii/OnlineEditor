@@ -3,3 +3,6 @@
 /target
 *~
 *.class
+/*.pid
+/*.out
+/*.log
