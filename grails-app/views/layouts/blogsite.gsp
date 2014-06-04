@@ -23,6 +23,15 @@
 
     <!--Modernizr 2.7.2-->
     <asset:javascript src="blog/modernizr.min.js"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?0c905ad4da3c67d134694bd30b4d69b0";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 <body>
