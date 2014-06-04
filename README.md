@@ -26,5 +26,7 @@ A simple web file editor, and you can use these file otherwhere
 * add a blog publisher app
 * add disqus/duoshuo or other comment service
 * add search to app (if not deploy in static site)
+* set baidu tongji to configurable
+
 
 
