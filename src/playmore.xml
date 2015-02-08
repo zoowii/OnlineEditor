@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.zuice.org/schema/beans"
+       xmlns:context="http://www.zuice.org/schema/context"
+       xmlns:aop="http://www.zuice.org/schema/aop">
+    <context:property-placeholder location="classpath:test.properties"/>
+    <import resource="playmoreconfig.xml"/>
+
+    <!--<context:component-scan base-package="com.zoowii.online_editor"/>-->
+    <!--<context:component-scan base-package="com.zoowii.online_editor.controllers"/>-->
+    <bean class="com.zoowii.online_editor.controllers.SiteController"/>
+    <bean class="com.zoowii.playmore.action.impl.AssertsController"/>
+
+    <bean id="sessionFactory" class="com.zoowii.jpa_utils.core.impl.EntitySessionFactory"
+          destroy-method="close">
+        <!--<constructor-arg value="persistenceUnit"/>-->
+    </bean>
+    <bean class="com.zoowii.playmore.persistent.impl.JPAUtilsTransactionManager"/>
+    <bean id="txAdvise" class="com.zoowii.playmore.persistent.JPAUtilsTransactionAdvise"/>
+    <aop:config>
+        <!-- tx around controllers then you can direct crud models in controllers/actions -->
+        <aop:pointcut id="txPoint" expression="com.zoowii.online_editor.services.*, com.zoowii.online_editor.controllers.*"/>
+        <aop:advisor advice-ref="txAdvise" pointcut-ref="txPoint"/>
+    </aop:config>
+
+    <bean id="logAdvice" class="com.zoowii.playmore.logger.SimpleLogAdvice"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:config>
+        <aop:pointcut id="logPoint" expression="com.zoowii.online_editor.*"/>
+        <aop:advisor advice-ref="logAdvice" pointcut-ref="logPoint"/>
+    </aop:config>
+
+    <aop:config>
+        <aop:pointcut id="securityPoint" expression="com.zoowii.online_editor.controllers.*"/>
+        <aop:advisor advice-ref="securityInterceptor" pointcut-ref="securityPoint"/>
+    </aop:config>
+
+    <bean class="com.zoowii.playmore.template.impl.VelocityRenderFactory" init-method="init">
+        <!--<property name="propertiesFileName" value="velocity.properties"/>-->
+        <property name="templateDirPath" value="templates"/>
+    </bean>
+</beans>

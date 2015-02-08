@@ -1,8 +1,12 @@
 /.idea
 /*.iml
-/target
 *~
-*.class
+#*#
+/build
+/out
+/dist
+*.pyc
+*.log
+/logs
+/*.log.*
 /*.pid
-/*.out
-/*.log

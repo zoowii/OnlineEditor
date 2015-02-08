@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="acg" class="no-js">
+<head>
+    <meta charset="utf-8"/>
+    <title>半次元-ACG同好社群</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit"/>
+    <link rel="shortcut icon" href="/Public/Image/favicon.ico?20140414"/>
+    <meta name="keywords" content="ACG,cos,cosplay,coser,动漫,二次元,同人"/>
+    <meta name="description"
+          content="半次元是国内最大的ACG同好社群，汇聚了包括Coser、绘师等创作者在内的众多二次元同好，提供cosplay和绘画创作发表、二次元同好交流等社群服务。网站共设cosplay、绘画、漫展、小组等5个频道。"/>
+    <link rel="stylesheet" href="${contextPath}/static/lib/semantic/semantic.min.css"/>
+    <link rel="stylesheet" href="${contextPath}/static/app/main.css"/>
+    <script src="${contextPath}/static/lib/underscore-min.js"></script>
+    <script src="${contextPath}/static/lib/jquery-1.11.2.min.js"></script>
+    <script src="${contextPath}/static/lib/semantic/semantic.min.js"></script>
+    <script>
+        var contextPath = "${contextPath}";
+    </script>
+</head>
+<body>
+<div class="main container">
+    <div class="ui red inverted menu">
+        <a class="active item">
+            <i class="home icon"></i> 二次元
+        </a>
+        <a class="item">
+            <i class="mail icon"></i> 小组
+        </a>
+        <a class="item">
+            <i class="user icon"></i> COS
+        </a>
+        <a class="item">
+            <i class="user icon"></i> 漫展
+        </a>
+        <a class="item">
+            <i class="user icon"></i> 教程
+        </a>
+    </div>
+    <div ng-view></div>
+</div>
+<script src="${contextPath}/static/bower_components/angular/angular.min.js"></script>
+<script src="${contextPath}/static/bower_components/angular-route/angular-route.min.js"></script>
+<script src="${contextPath}/static/app/index_view/index_view.js"></script>
+<script src="${contextPath}/static/app/app.js"></script>
+</body>
+</html>
