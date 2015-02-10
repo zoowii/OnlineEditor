@@ -1,0 +1,6 @@
+</div>
+
+<div class="blog-footer" role="contentinfo">
+    <p>Author: <a href="http://zoowii.com" target="_blank">@zoowii</a></p>
+</div>
+#parse("templates/layouts/website_footer.vm")

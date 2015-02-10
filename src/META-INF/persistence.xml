@@ -5,20 +5,21 @@
     <persistence-unit name="persistenceUnit"
                       transaction-type="RESOURCE_LOCAL">
         <properties>
-            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>-->
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>-->
-            <!--<property name="javax.persistence.jdbc.user" value="test"/>-->
-            <!--<property name="javax.persistence.jdbc.password" value="test"/>-->
-            <!--<property name="hbm2ddl.auto" value="update"/>-->
-            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
-            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>-->
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:playmore"/>
-            <property name="javax.persistence.jdbc.user" value=""/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/online_editor?useUnicode=yes&amp;characterEncoding=UTF-8"/>
+            <property name="javax.persistence.jdbc.user" value="test"/>
+            <property name="javax.persistence.jdbc.password" value="test"/>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!--<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:playmore"/>-->
+            <!--<property name="javax.persistence.jdbc.user" value=""/>-->
+            <!--<property name="javax.persistence.jdbc.password" value=""/>-->
+            <!--<property name="hbm2ddl.auto" value="update"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
         </properties>
     </persistence-unit>
 </persistence>

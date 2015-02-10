@@ -1,0 +1,264 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+
+    <!--IE Compatibility modes-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Mobile first-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="${contextPath}/static/favicon.jpg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="${contextPath}/static/favicon.jpg">
+    <link rel="apple-touch-icon" sizes="114x114" href="${contextPath}/favicon.jpg">
+    <link rel="stylesheet" href="${contextPath}/static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${contextPath}/static/css/blog/font-awesome.min.css"/>
+    <link rel="stylesheet" href="${contextPath}/static/css/blog/main.min.css"/>
+    <link rel="stylesheet" href="${contextPath}/static/css/blog/theme.css"/>
+    <!--[if lt IE 9]>
+    <asset:javascript src="html5shiv.js"/>
+    <asset:javascript src="respond.min.js"/>
+    <![endif]-->
+
+    <!--Modernizr 2.7.2-->
+    <asset:javascript src="blog/modernizr.min.js"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?0c905ad4da3c67d134694bd30b4d69b0";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+<div id="wrap">
+    <div id="top">
+
+        <!-- .navbar -->
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <header class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="${metaInfo.getBlogHost()}" class="navbar-brand">
+                        <asset:image src="blog/logo.png"/>
+                    </a>
+                </header>
+
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+                    <!-- .nav -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="${author.getUrl()}">关于作者</a></li>
+                        <li><a href="https://github.com/${author.getUserName}">Github</a></li>
+                        #if($isAuthor)
+                            <li><a href="${contextPath}/">Dashboard</a></li>
+                            <li><a href="${contextPath}/table">Tables</a></li>
+                            <li><a href="${contextPath}/file/list">File Manager</a></li>
+                        #end
+                    </ul>
+                    <!-- /.nav -->
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- /.navbar -->
+        <header class="head">
+            <div class="search-bar">
+                <form class="main-search" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Live Search ...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary btn-sm text-muted" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                    </div>
+                </form>
+                <!-- /.main-search -->
+            </div>
+            <!-- /.search-bar -->
+            <div class="main-bar">
+                <h3>
+                    <i class="fa fa-home"></i>
+                    <a href="${metaInfo.getBlogHost()}" style="color: #ffffff">${metaInfo.getSiteTitle()}</a>
+
+                    <div class="g-plusone" data-annotation="inline" data-width="220"></div>
+
+                    <script type="text/javascript">
+                        window.___gcfg = {
+                            lang: 'zh-CN'
+                        };
+                        (function () {
+                            var po = document.createElement('script');
+                            po.type = 'text/javascript';
+                            po.async = true;
+                            po.src = 'https://apis.google.com/js/plusone.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(po, s);
+                        })();
+                    </script>
+                </h3>
+
+            </div>
+            <!-- /.main-bar -->
+        </header>
+        <!-- /.head -->
+    </div>
+    <!-- /#top -->
+    <div id="left">
+        <div class="media user-media">
+            <div class="user-media-toggleHover">
+                <span class="fa fa-user"></span>
+            </div>
+
+            <div class="user-wrapper">
+                <a class="user-link" href="${author.getUrl()}">
+                    <asset:image src="blog/zoowii.jpg" class="media-object img-thumbnail user-img" alt="User Picture"/>
+                    <span class="label label-danger user-label">Star</span>
+                </a>
+
+                <div class="media-body">
+                    <h5 class="media-heading">${author.getUserName()}</h5>
+                    <ul class="list-unstyled user-info">
+                        <li><a href="${author.getUrl()}">作者</a></li>
+                        <li>Last Access :
+                            <br>
+                            <small>
+                                <i class="fa fa-calendar"></i>&nbsp;${author.getLastLoginTimeStr()}</small>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- #menu -->
+        <ul id="menu" class="">
+            <li class="nav-header">
+                MENU
+            </li>
+            <li class="nav-divider"></li>
+            #if(${isAuthor})
+                <li class="">
+                    <a href="${contextPath}/">
+                        <i class="fa fa-dashboard"></i><span class="link-title">Dashboard</span>
+                    </a>
+                </li>
+            #end
+            <li>
+                <a href="${author.getUrl()}">
+                    <i class="fa fa-font"></i><span class="link-title">&nbsp;${author.getAliasName()}</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-tasks"></i>
+                <span class="link-title">
+                    标签
+                </span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul>
+                    #foreach($tag in $tags)
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-angle-right"></i><span class="link-title">&nbsp;${tag}</span>
+                            </a>
+                        </li>
+                    #end
+                </ul>
+            </li>
+            #if($isAuthor)
+                <li>
+                    <a href="${contextPath}/table/list">
+                        <i class="fa fa-table"></i>
+                        <span class="link-title">Tables</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="${contextPath}/file/list">
+                        <i class="fa fa-file"></i>
+                    <span class="link-title">
+                        File Manager
+                    </span>
+                    </a>
+                </li>
+            #end
+            <li>
+                <a href="https://github.com/${author.getUserName()}" target="_blank">
+                    <i class="fa fa-columns"></i>
+                <span class="link-title">
+                    Github
+                </span>
+                </a>
+            </li>
+            <li class="nav-divider"></li>
+            <li>
+                <a href="${contextPath}/login">
+                    <i class="fa fa-sign-in"></i>
+                <span class="link-title">
+                    登录
+                </span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fa fa-code"></i>
+                <span class="link-title">
+                    外链
+                </span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul>
+                    <li>
+                        #foreach($outLink in $outLinks)
+                            <a href="${outLink.url}" title="${outLink.getTitle()}">
+                                <i class="fa fa-angle-right"></i>
+                            <span class="link-titl">
+                                &nbsp;
+                                #if(${outLink.getName()})
+                                    ${outLink.name}
+                                #else
+                                    ${outLink.url}
+                                #end
+                            </span>
+                            </a>
+                        #end
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-divider"></li>
+            <li class="nav-header">广告</li>
+            <li class="nav-divider"></li>
+            <li>
+                <a href="https://www.linode.com/?r=ac463147d488b8d158bddc1ef75ff258bf18c863">
+                    <i class="fa fa-ticket"></i>
+                    <span class="link-title">Linode Referral Link</span>
+                </a>
+            </li>
+            <li class="nav-divider"></li>
+            <style>
+
+            </style>
+
+        </ul>
+        <!-- /#menu -->
+    </div>
+    <!-- /#left -->
+    <div id="content">
+        <div class="outer">
+            <div class="inner">
+                <div class="col-lg-12">

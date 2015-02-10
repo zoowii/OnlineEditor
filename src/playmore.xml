@@ -9,6 +9,7 @@
     <!--<context:component-scan base-package="com.zoowii.online_editor.controllers"/>-->
     <bean class="com.zoowii.online_editor.controllers.SiteController"/>
     <bean class="com.zoowii.playmore.action.impl.AssertsController"/>
+    <bean class="com.zoowii.online_editor.services.impl.AccountService"/>
 
     <bean id="sessionFactory" class="com.zoowii.jpa_utils.core.impl.EntitySessionFactory"
           destroy-method="close">
@@ -18,7 +19,8 @@
     <bean id="txAdvise" class="com.zoowii.playmore.persistent.JPAUtilsTransactionAdvise"/>
     <aop:config>
         <!-- tx around controllers then you can direct crud models in controllers/actions -->
-        <aop:pointcut id="txPoint" expression="com.zoowii.online_editor.services.*, com.zoowii.online_editor.controllers.*"/>
+        <aop:pointcut id="txPoint"
+                      expression="com.zoowii.online_editor.services.*, com.zoowii.online_editor.controllers.*"/>
         <aop:advisor advice-ref="txAdvise" pointcut-ref="txPoint"/>
     </aop:config>
 

@@ -15,7 +15,7 @@ public class LoginForm {
     @Length(min = 4, max = 40)
     private String username;
     @NotNull
-    @Length(min = 6, max = 30, message = "密码长度不少于6位,不长于30位")
+    @Length(min = 4, max = 30, message = "密码长度不少于4位,不长于30位")
     private String password;
 
     public String getUsername() {

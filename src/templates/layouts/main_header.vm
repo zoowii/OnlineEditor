@@ -1,0 +1,44 @@
+#parse("templates/layouts/website_header.vm")
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item active" href="${contextPath}/">Home</a>
+            <a class="blog-nav-item" href="${contextPath}/file/create">New File</a>
+            <a class="blog-nav-item" href="${contextPath}/profile">Profile</a>
+            #if($isGuest)
+                <a class="blog-nav-item"
+                   href="${contextPath}/blog/zoowii">Blog</a>
+            #else
+                <a class="blog-nav-item"
+                   href="${contextPath}/blog/${currentUserName}">Blog</a>
+                <a class="blog-nav-item" href="${contextPath}/blog/admin">Blog Admin</a>
+            #end
+            <!--<a class="blog-nav-item" href="#">Administration</a>-->
+            <a class="blog-nav-item" href="#">About</a>
+            #if($isGuest)
+                <a class="blog-nav-item" href="${contextPath}/register">Sign Up</a>
+                <a class="blog-nav-item" href="${contextPath}/login">Sign In</a>
+            #else
+                <a class="blog-nav-item" href="${contextPath}/logout">Sign Out</a>
+                <a class="blog-nav-item" href="${contextPath}/profile"
+                   style="float: right">Welcome, ${currentUserName}</a>
+            #end
+        </nav>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px">
+    <div>
+        #if(${request.flash("success")})
+            <div class="alert alert-success">${request.flash("success")}</div>
+        #end
+        #if(${request.flash("info")})
+            <div class="alert alert-info">${request.flash("info")}</div>
+        #end
+        #if(${request.flash("error")})
+            <div class="alert alert-danger">${request.flash("error")}</div>
+        #end
+        #if(${request.flash("warning")})
+            <div class="alert alert-warning">${request.flash("warning")}</div>
+        #end
+    </div>
