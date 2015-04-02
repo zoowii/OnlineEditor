@@ -6,9 +6,9 @@ import com.zoowii.online_editor.models.AccountEntity;
  * Created by zoowii on 15/2/10.
  */
 public interface IAccountService {
-    public AccountEntity findByUserNameOrEmail(String usernameOrEmail);
+    AccountEntity findByUserNameOrEmail(String usernameOrEmail);
 
-    public void initAccounts();
+    void initAccounts();
 
-    public boolean checkPassword(AccountEntity accountEntity, String password);
+    boolean checkPassword(AccountEntity accountEntity, String password);
 }

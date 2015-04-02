@@ -44,8 +44,7 @@ public class CController extends BaseController {
     protected Object flash(String key) {
         return HttpUtils.getCurrentHttpRequest().flash(key);
     }
-
-    protected ActionResult redirect(String url) {
-        return ActionResults.ok("Redirect").setStatusCode(HttpURLConnection.HTTP_MOVED_TEMP).setHeader("Location", url);
+    protected ActionResult redirectToLogin() {
+        return redirect(HttpUtils.getCurrentHttpRequest().getContextPath() + "/login");
     }
 }

@@ -1,10 +1,9 @@
 package com.zoowii.online_editor.models;
 
+import com.zoowii.jpa_utils.extension.ExtendFinder;
 import com.zoowii.jpa_utils.orm.Model;
-import com.zoowii.jpa_utils.query.Finder;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "bucket")
 public class BucketEntity extends Model {
-    public static final Finder<Long, BucketEntity> find = new Finder<Long, BucketEntity>(Long.class, BucketEntity.class);
+    public static final ExtendFinder<Long, BucketEntity> find = new ExtendFinder<Long, BucketEntity>(Long.class, BucketEntity.class);
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -1,0 +1,34 @@
+#parse("templates/layouts/main_header.vm")
+
+<div class="row main-content">
+        <div>
+            <a href="${contextPath}/bucket/create" class="btn btn-primary btn-sm">New Bucket</a>
+            <hr/>
+        </div>
+
+        <div>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Created Time</th>
+                <th></th>
+                </thead>
+                <tbody>
+                #foreach($bucket in $buckets)
+                <tr>
+                    <td>${bucket.id}</td>
+                    <td>${bucket.name}</td>
+                    <td>${bucket.createdTime}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+            ${paginator.getSimplePaginationHtml()}
+        </div>
+    </div>
+
+#parse("templates/layouts/main_footer.vm")

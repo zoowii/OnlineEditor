@@ -8,6 +8,8 @@
     <!--<context:component-scan base-package="com.zoowii.online_editor"/>-->
     <!--<context:component-scan base-package="com.zoowii.online_editor.controllers"/>-->
     <bean class="com.zoowii.online_editor.controllers.SiteController"/>
+    <bean class="com.zoowii.online_editor.controllers.BucketController"/>
+    <bean class="com.zoowii.online_editor.controllers.BlogController"/>
     <bean class="com.zoowii.playmore.action.impl.AssertsController"/>
     <bean class="com.zoowii.online_editor.services.impl.AccountService"/>
 

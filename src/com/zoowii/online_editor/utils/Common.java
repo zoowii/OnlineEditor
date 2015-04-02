@@ -24,4 +24,36 @@ public class Common {
         }
         return builder.toString();
     }
+    public static int tryParseInt(Object obj, int defaultValue) {
+        if(obj == null) {
+            return defaultValue;
+        }
+        if(obj instanceof Integer) {
+            return (Integer) obj;
+        }
+        try {
+            return Integer.valueOf(obj.toString());
+        } catch(Exception e) {
+            return defaultValue;
+        }
+    }
+    public static long tryParseLong(Object obj, long defaultValue) {
+        if(obj == null) {
+            return defaultValue;
+        }
+        if(obj instanceof Long) {
+            return (Long) obj;
+        }
+        try {
+            return Long.valueOf(obj.toString());
+        } catch(Exception e) {
+            return defaultValue;
+        }
+    }
+    public static int tryParseInt(Object obj) {
+        return tryParseInt(obj, 0);
+    }
+    public static long tryParseLong(Object obj) {
+        return tryParseLong(obj, 0L);
+    }
 }

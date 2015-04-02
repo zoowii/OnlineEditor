@@ -4,6 +4,7 @@ import com.zoowii.formutils.BindingResult;
 import com.zoowii.formutils.Validator;
 import com.zoowii.online_editor.forms.ChangePasswordForm;
 import com.zoowii.online_editor.forms.LoginForm;
+import com.zoowii.online_editor.forms.RegisterForm;
 import com.zoowii.online_editor.models.AccountEntity;
 import com.zoowii.online_editor.models.CloudFileEntity;
 import com.zoowii.online_editor.security.Secured;
@@ -74,6 +75,34 @@ public class SiteController extends CController {
         user.update();
         flash("success", "登录成功!");
         return redirect(request.getContextPath() + "/");
+    }
+
+    @Route(value = "/register", methods = Route.POST)
+    public ActionResult register(HttpServletRequestWrapper request) {
+        accountService.initAccounts();
+        RegisterForm registerForm = request.asForm(RegisterForm.class);
+        BindingResult validateResult = validator.validate(registerForm);
+        if(validateResult.hasErrors()) {
+            flash("error", validateResult.getErrors().next().getErrorMessage());
+            return redirect(request.getContextPath() + "/register");
+        }
+        if(AccountEntity.find.where().eq("userName", registerForm.getUsername()).first() != null
+                || AccountEntity.find.where().eq("email", registerForm.getEmail()).first() != null) {
+            flash("error", "user name or email existed");
+            return redirect(request.getContextPath() + "/register");
+        }
+        AccountEntity user = new AccountEntity();
+        user.setEmail(registerForm.getEmail().trim());
+        user.setUserName(registerForm.getUsername().trim());
+        user.setPassword(BCrypt.hashpw(registerForm.getPassword().trim(), BCrypt.gensalt()));
+        user.save();
+        flash("success", "Welcome to Online Editor!");
+        return redirectToLogin();
+    }
+
+    @Route(value = "/register", methods = Route.GET)
+    public ActionResult registerPage() {
+        return ok(renderFactory.create("site/register.vm").render(getBaseRenderContext()));
     }
 
     @Route("/logout")
