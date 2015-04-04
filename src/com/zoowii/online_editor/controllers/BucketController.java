@@ -13,6 +13,7 @@ import com.zoowii.playmore.http.HttpServletRequestWrapper;
 import com.zoowii.playmore.security.Authenticated;
 import com.zoowii.playmore.template.RenderContext;
 import com.zoowii.playmore.template.RenderFactory;
+import org.apache.commons.lang3.tuple.Pair;
 import zuice.annotations.Autowired;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class BucketController extends CController {
         paginator.setPage(Common.tryParseInt(request.getParameter("page"), 1));
         paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 20));
         paginator = paginator.eq("owner", currentUser);
+        paginator.getOrders().add(Pair.of("createdTime", false));
         List<BucketEntity> bucketEntities = BucketEntity.find.findByPaginator(paginator);
         RenderContext ctx = getBaseRenderContext();
         ctx.put("buckets", bucketEntities);
@@ -54,8 +56,8 @@ public class BucketController extends CController {
     public ActionResult create(HttpServletRequestWrapper request) {
         AccountEntity user = currentUser();
         String name = request.getParameter("name");
-        if (name == null || name.trim().length() < 5 || name.trim().length() > 40) {
-            flash("error", "bucket name's length must be [5, 40] characters");
+        if (name == null || name.trim().length() < 4 || name.trim().length() > 40) {
+            flash("error", "bucket name's length must be [4, 40] characters");
             return redirect(urlFor(BucketController.class, "createPage"));
         }
         BucketEntity bucketEntity = BucketEntity.find.where().eq("name", name).first();

@@ -1,0 +1,55 @@
+#parse("templates/layouts/main_header.vm")
+
+<title>${blogTitle}</title>
+<link rel="stylesheet" href="${contextPath}/static/css/blog/article.css"/>
+<h1><a href="${contextPath}/blog/${author.getUserName()}/$article.getId()">${article.getTitle()}</a></h1>
+<blockquote>
+    <p>
+        #foreach($tag in $article.getTags())
+            <span class="label label-primary">${tag}</span>
+        #end
+    </p>
+
+    <p>${article.getSummary()}</p>
+
+    <div class="blog-author-area">
+                <span class="blog-author-field">${author.getAliasName()}: <a
+                        href="${author.getUrl()}">${article.getAuthor().getAliasName()}</a></span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="blog-date-field">${article.getFormatedDate()}</span>
+    </div>
+</blockquote>
+
+<div>
+    ${article.getHtml()}
+</div>
+<hr/>
+
+<div>
+    <!-- 评论区域 TODO: 不要硬编码,外部注入 -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="${article.getId()}" data-title="${article.getTitle()}"
+         data-url="${contextPath}/blog/${article.getAuthor().getUserName()}/${article.getId()}"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    #if(${metaInfo.getDuoshuo_username()})
+        #set($duoshuoUsername=${metaInfo.getDuoshuo_username()})
+    #else
+        #set($duoshuoUsername="zoowii")
+    #end
+    var duoshuoQuery = {short_name: "${duoshuoUsername}"}; // 使用当前作者
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+</div>
+
+#parse("templates/layouts/main_footer.vm")

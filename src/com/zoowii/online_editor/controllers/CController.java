@@ -45,6 +45,9 @@ public class CController extends BaseController {
         return HttpUtils.getCurrentHttpRequest().flash(key);
     }
     protected ActionResult redirectToLogin() {
-        return redirect(HttpUtils.getCurrentHttpRequest().getContextPath() + "/login");
+        return redirect(urlFor(SiteController.class, "loginPage"));
+    }
+    protected ActionResult redirectToIndex() {
+        return redirect(urlFor(SiteController.class, "index"));
     }
 }

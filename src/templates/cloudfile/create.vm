@@ -1,0 +1,47 @@
+#parse("templates/layouts/main_header.vm")
+
+<div class="row main-content">
+    <div style="text-align: center">
+        <h4>Create File</h4>
+    </div>
+
+    <form role="form" class="new-file-form" method="POST" action="${contextPath}/file/create">
+    <div class="form-group">
+        <label for="name-field">File Name</label>
+        <br/>
+        <input type="text" class="form-control" name="name" id="name-field" value="${file.getName()}"
+               placeholder="Enter File Name"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label for="description-field">Description(optional)</label>
+        <input type="text" class="form-control" name="description" value="${file.getDescription()}" multiple="true"
+               id="description-field"
+               placeholder="Description">
+    </div>
+
+    <div class="form-group">
+        <label>Bucket</label>
+        <select name="bucketId" class="form-control">
+            #foreach($bucket in $userBuckets)
+                #if($bucket==$currentBucket)
+                    <option value="${bucket.getId()}" selected="selected">${bucket.getName()}</option>
+                #else
+                    <option value="${bucket.getId()}">${bucket.getName()}</option>
+                #end
+            #end
+        </select>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="isPrivate" checked=""/>
+            <span class="strong">Private?</span>
+        </label>
+    </div>
+    <button type="submit" class="btn btn-success">Create File</button>
+    </form>
+</div>
+
+#parse("templates/layouts/main_footer.vm")

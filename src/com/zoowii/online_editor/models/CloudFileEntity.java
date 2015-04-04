@@ -22,6 +22,7 @@ public class CloudFileEntity extends Model {
     private Integer version = 1;
     private Date createdTime = new Date();
     private Date lastUpdatedTime = new Date();
+    private Date date = new Date();
     private String name;
     @Column(nullable = true)
     private String description;
@@ -176,5 +177,13 @@ public class CloudFileEntity extends Model {
 
     public void setFileAliases(List<FileAliasEntity> fileAliases) {
         this.fileAliases = fileAliases;
+    }
+
+    public Date getDate() {
+        return date == null ? new Date() : date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

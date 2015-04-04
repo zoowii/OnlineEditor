@@ -27,8 +27,8 @@
                 #end
                 </tbody>
             </table>
-            ${paginator.getSimplePaginationHtml()}
         </div>
+        #parse("templates/partials/paginator.vm")
     </div>
 
 #parse("templates/layouts/main_footer.vm")

@@ -10,8 +10,11 @@
     <bean class="com.zoowii.online_editor.controllers.SiteController"/>
     <bean class="com.zoowii.online_editor.controllers.BucketController"/>
     <bean class="com.zoowii.online_editor.controllers.BlogController"/>
+    <bean class="com.zoowii.online_editor.controllers.FileController"/>
     <bean class="com.zoowii.playmore.action.impl.AssertsController"/>
     <bean class="com.zoowii.online_editor.services.impl.AccountService"/>
+    <bean class="com.zoowii.online_editor.services.impl.MarkDownService"/>
+    <bean class="com.zoowii.online_editor.services.impl.CloudFileService"/>
 
     <bean id="sessionFactory" class="com.zoowii.jpa_utils.core.impl.EntitySessionFactory"
           destroy-method="close">

@@ -1,0 +1,31 @@
+#parse("templates/layouts/main_header.vm")
+
+<title>${blogTitle}</title>
+<link rel="stylesheet" href="${contextPath}/static/css/blog/article.css"/>
+#foreach($article in $articles)
+    <h1><a href="${contextPath}/blog/${author.getUserName()}/$article.getId()">${article.getTitle()}</a></h1>
+    <blockquote>
+        <p>
+            #foreach($tag in $article.getTags())
+                <span class="label label-primary">${tag}</span>
+            #end
+        </p>
+
+        <p>${article.getSummary()}</p>
+
+        <div class="blog-author-area">
+                <span class="blog-author-field">${author.getAliasName()}: <a
+                        href="${author.getUrl()}">${article.getAuthor().getAliasName()}</a></span>
+            &nbsp;&nbsp;&nbsp;
+            <span class="blog-date-field">${article.getFormatedDate()}</span>
+        </div>
+    </blockquote>
+
+    <div>${article.getHtml()}</div>
+    <hr/>
+#end
+<div>
+    #parse("templates/partials/paginator.vm")
+</div>
+
+#parse("templates/layouts/main_footer.vm")

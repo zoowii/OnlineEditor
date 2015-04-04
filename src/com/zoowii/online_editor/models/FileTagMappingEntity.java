@@ -21,6 +21,8 @@ public class FileTagMappingEntity extends Model {
     private FileTagEntity tag;
     @ManyToOne
     private CloudFileEntity file;
+    @ManyToOne
+    private AccountEntity owner;
 
     public Long getId() {
         return id;
@@ -52,5 +54,13 @@ public class FileTagMappingEntity extends Model {
 
     public void setFile(CloudFileEntity file) {
         this.file = file;
+    }
+
+    public AccountEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AccountEntity owner) {
+        this.owner = owner;
     }
 }

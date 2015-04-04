@@ -43,7 +43,7 @@ public class SiteController extends CController {
         accountService.initAccounts();
         List<CloudFileEntity> files = new ArrayList<CloudFileEntity>();
         if (currentUser() != null) {
-            files = CloudFileEntity.find.where().eq("author", currentUser()).orderBy("createdTime", false).limit(20).all();
+            files = CloudFileEntity.find.where().eq("author", currentUser()).orderBy("lastUpdatedTime", false).limit(20).all();
         }
         RenderContext ctx = getBaseRenderContext();
         ctx.put("files", files);

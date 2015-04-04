@@ -1,0 +1,69 @@
+#parse("templates/layouts/main_header.vm")
+
+<script src="${contextPath}/static/js/ace/src-min/ace.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-css.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-html.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-java.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-javascript.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-json.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-lisp.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-ruby.js"></script>
+<script src="${contextPath}/static/js/ace/src-min/mode-python.js"></script>
+<script src="${contextPath}/static/js/file/edit_file.js"></script>
+<script>
+    var isNew = "${isNew}" === 'true';
+    var fileId = "${file.getId()}";
+    var fileVersion = parseInt("${file.getFileVersion()}");
+    var updateFileUrl = "${contextPath}/file/update";
+    var changeFileAclurl = "${contextPath}/file/change_file_acl";
+    var mimeType = "${file.getMimeType()}";
+    var isPrivate = "${file.getIsPrivate()}" === 'true';
+</script>
+
+<div class="row main-content">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 title="${file.getDescription()}">
+                #if(${file.getIsPrivate()})
+                    <span class="glyphicon glyphicon-lock"></span>
+                #end
+                #if(${isNew})
+                    Create File
+                #else
+                    File: ${file.getName()}
+                #end
+            </h4>
+            <span>MIME Type:</span>
+            <select class="mimetype-select">
+                <option value="text/plain; charset=UTF-8">text/plain</option>
+                <option value="text/css; charset=utf-8">Css</option>
+                <option value="appliation/javascript">JavaScript</option>
+                <option value="text/html; charset=UTF-8">HTML</option>
+            </select>
+            <button class="btn btn-primary btn-sm save-btn">Save</button>
+            <button class="btn change-acl-btn btn-default btn-sm">
+                #if(${file.getIsPrivate()})
+                    Publish
+                #else
+                    UnPublish
+                #end
+            </button>
+            <a class="btn btn-info btn-sm"
+               href="${contextPath}/file/view/${file.getId()}"
+            target="_blank">View File</a>
+            <a href="${contextPath}/file/view_markdown/${file.getId()}"
+            class="btn btn-primary btn-sm" target="_blank">as MarkDown</a>
+            <a href="#" class="btn btn-success btn-sm">MarkDown Preview</a>
+
+            <div class="success-msg inline-alert alert alert-success" style="display: none">
+                Well done! You successfully read this important alert message.
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div id="file-editor">${file.getContent()}</div>
+        </div>
+    </div>
+</div>
+
+#parse("templates/layouts/main_footer.vm")

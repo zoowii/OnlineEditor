@@ -1,0 +1,41 @@
+#parse("templates/layouts/main_header.vm")
+
+<div class="row main-content">
+    <div>
+        <a href="${contextPath}/file/create" class="btn btn-primary btn-sm">New File</a>
+        <hr/>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-stripped">
+            <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Bucket</th>
+            <th>Created Time</th>
+            <th></th>
+            </thead>
+            <tbody>
+            #foreach($file in $files)
+            <tr>
+                <td>${file.getId()}</td>
+                <td>${file.getName()}</td>
+                <td>${file.getBucket().getName()}</td>
+                <td>${file.getCreatedTime()}</td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="${contextPath}/file/edit/${file.getId()}"
+                    class="glyphicon glyphicon-pencil"></a>
+                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-trash"></span>
+                </td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+        #parse("templates/partials/paginator.vm")
+    </div>
+</div>
+
+#parse("templates/layouts/main_footer.vm")
