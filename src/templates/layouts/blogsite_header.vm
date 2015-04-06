@@ -64,7 +64,6 @@
                         <li><a href="https://github.com/${author.getUserName}">Github</a></li>
                         #if($isAuthor)
                             <li><a href="${contextPath}/">Dashboard</a></li>
-                            <li><a href="${contextPath}/table">Tables</a></li>
                             <li><a href="${contextPath}/file/list">File Manager</a></li>
                         #end
                     </ul>

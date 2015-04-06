@@ -19,6 +19,7 @@ import com.zoowii.playmore.http.HttpServletRequestWrapper;
 import com.zoowii.playmore.security.Authenticated;
 import com.zoowii.playmore.template.RenderContext;
 import com.zoowii.playmore.template.RenderFactory;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import zuice.annotations.Autowired;
 
@@ -197,12 +198,14 @@ public class FileController extends CController {
         Set<String> newTagsSet = createOrUpdateCloudFileForm.getTagsSet();
         if(!fileEntity.getContent().equals(createOrUpdateCloudFileForm.getContent())
                 || !fileEntity.getMimeType().equals(createOrUpdateCloudFileForm.getMimeType())
-                || !(fileEntity.getTags().containsAll(newTagsSet) && newTagsSet.containsAll(fileEntity.getTags()))) {
+                || !(fileEntity.getTags().containsAll(newTagsSet) && newTagsSet.containsAll(fileEntity.getTags()))
+                || !(fileEntity.getDateString().equals(DateFormatUtils.format(createOrUpdateCloudFileForm.getDate(), "yyyy-MM-dd")))) {
             fileEntity.setMimeType(createOrUpdateCloudFileForm.getMimeType());
             fileEntity.setContent(createOrUpdateCloudFileForm.getContent());
             fileEntity.setFileVersion(fileEntity.getFileVersion());
             fileEntity.setLastUpdatedTime(new Date());
             fileEntity.setTagsString(createOrUpdateCloudFileForm.getTags().trim());
+            fileEntity.setDate(createOrUpdateCloudFileForm.getDate());
             fileEntity.update();
             cloudFileService.addFileChangeLog(fileEntity);
             for(FileTagMappingEntity fileTagMappingEntity : FileTagMappingEntity.find.where().eq("file", fileEntity).all()) {

@@ -10,10 +10,10 @@
         #end
     </p>
 
-    <p>${article.getSummary()}</p>
+    <!-- <p>${article.getSummary()}</p> -->
 
     <div class="blog-author-area">
-                <span class="blog-author-field">${author.getAliasName()}: <a
+                <span class="blog-author-field">作者: <a
                         href="${author.getUrl()}">${article.getAuthor().getAliasName()}</a></span>
         &nbsp;&nbsp;&nbsp;
         <span class="blog-date-field">${article.getFormatedDate()}</span>

@@ -59,7 +59,10 @@
                 Well done! You successfully read this important alert message.
             </div>
             <div>
-                标签(空格分隔): <input type="text" class="fileTagsField" value="${file.getTagsString()}"/>
+                <span>标签(空格分隔):</span> <input type="text" class="fileTagsField" value="${file.getTagsString()}"/>
+            </div>
+            <div>
+                <span>日期: </span> <input type="text" class="dateField" value="${file.getDateString()}"/>
             </div>
         </div>
         <div class="panel-body">

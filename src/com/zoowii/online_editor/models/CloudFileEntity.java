@@ -3,6 +3,7 @@ package com.zoowii.online_editor.models;
 import com.zoowii.jpa_utils.orm.Model;
 import com.zoowii.jpa_utils.util.StringUtil;
 import com.zoowii.online_editor.finders.CloudFileFinder;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -202,5 +203,10 @@ public class CloudFileEntity extends Model {
 
     public void setTagsString(String tagsString) {
         this.tagsString = tagsString;
+    }
+
+    @Transient
+    public String getDateString() {
+        return DateFormatUtils.format(getDate(), "yyyy-MM-dd");
     }
 }

@@ -37,9 +37,14 @@ public class SiteController extends CController {
     @Autowired
     private IAccountService accountService;
 
-    @Route(value = {"", "/", "/home"})
-    @Authenticated(Secured.class)
+    @Route(value = {"", "/"})
     public ActionResult index() {
+        return redirect(urlFor(BlogController.class, "indexOfDefault"));
+    }
+
+    @Route(value = {"/home"})
+    @Authenticated(Secured.class)
+    public ActionResult indexOfAdminHome() {
         accountService.initAccounts();
         List<CloudFileEntity> files = new ArrayList<CloudFileEntity>();
         if (currentUser() != null) {
@@ -108,7 +113,7 @@ public class SiteController extends CController {
     @Route("/logout")
     public ActionResult logout(HttpServletRequestWrapper request) {
         request.getSession().invalidate();
-        return redirect("");
+        return redirect(urlFor(SiteController.class, "loginPage"));
     }
 
     @Route("/profile")

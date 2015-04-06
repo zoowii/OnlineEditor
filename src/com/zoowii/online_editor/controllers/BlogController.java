@@ -63,9 +63,9 @@ public class BlogController extends CController {
         AccountEntity currentUser = currentUser();
         Paginator paginator = new Paginator();
         paginator.setPage(Common.tryParseInt(request.getParameter("page"), 1));
-        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 20));
+        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 8));
         paginator = paginator.eq("author", author).eq("deleted", false).like("tagsString", "%" + tagName + "%");
-        paginator.getOrders().add(Pair.of("lastUpdatedTime", false));
+        paginator.getOrders().add(Pair.of("date", false));
         List<BlogArticle> articles = ListUtils.map(CloudFileEntity.find.findByPaginator(paginator), new Function<CloudFileEntity, BlogArticle>() {
             @Override
             public BlogArticle apply(@Nullable CloudFileEntity cloudFileEntity) {
@@ -101,9 +101,9 @@ public class BlogController extends CController {
         AccountEntity currentUser = currentUser();
         Paginator paginator = new Paginator();
         paginator.setPage(Common.tryParseInt(request.getParameter("page"), 1));
-        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 20));
+        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 8));
         paginator = paginator.eq("author", author).eq("deleted", false);
-        paginator.getOrders().add(Pair.of("lastUpdatedTime", false));
+        paginator.getOrders().add(Pair.of("date", false));
         List<BlogArticle> articles = ListUtils.map(CloudFileEntity.find.findByPaginator(paginator), new Function<CloudFileEntity, BlogArticle>() {
             @Override
             public BlogArticle apply(@Nullable CloudFileEntity cloudFileEntity) {
@@ -197,7 +197,7 @@ public class BlogController extends CController {
         AccountEntity user = currentUser();
         Paginator paginator = new Paginator();
         paginator.setPage(Common.tryParseInt(request.getParameter("page"), 1));
-        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 20));
+        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 8));
         paginator = paginator.eq("author", user).eq("deleted", false);
         paginator.getOrders().add(Pair.of("lastUpdatedTime", false));
         List<CloudFileEntity> files = CloudFileEntity.find.findByPaginator(paginator);

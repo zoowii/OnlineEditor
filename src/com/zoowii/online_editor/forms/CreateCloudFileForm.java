@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * Created by zoowii on 15/4/4.
  */
 public class CreateCloudFileForm {
-    @Length(min = 3, max = 40)
+    @Length(min = 3, max = 100)
     @NotNull
     private String name;
     @Length(min = 0, max = 250)

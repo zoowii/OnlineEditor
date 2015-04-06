@@ -5,6 +5,7 @@ import com.zoowii.playmore.util.ListUtils;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public class CreateOrUpdateCloudFileForm {
     @NotNull
     @Length(min = 0, max = 250)
     private String tags = "";
+    @NotNull
+    private Date date;
 
     public Long getId() {
         return id;
@@ -75,5 +78,13 @@ public class CreateOrUpdateCloudFileForm {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

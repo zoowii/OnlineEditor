@@ -18,6 +18,7 @@ public class FileLogEntity extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer version = 1;
+    @Lob
     private String content;
     private Date createdTime = new Date();
     @Column(nullable = true)

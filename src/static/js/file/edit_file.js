@@ -24,6 +24,7 @@ $(function () {
             version: fileVersion,
             content: content,
             mimeType: mimeType,
+            date: $(".dateField").val().trim(),
             tags: tags
         }, function (json) {
             if (json.success) {
