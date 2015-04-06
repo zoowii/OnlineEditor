@@ -126,7 +126,7 @@
 
             <div class="user-wrapper">
                 <a class="user-link" href="${author.getUrl()}">
-                    <asset:image src="blog/zoowii.jpg" class="media-object img-thumbnail user-img" alt="User Picture"/>
+                    <img src="${contextPath}/static/img/blog/zoowii.jpg" alt="User Picture" class="media-object img-thumbnail user-img"/>
                     <span class="label label-danger user-label">Star</span>
                 </a>
 
@@ -134,14 +134,8 @@
                     <h5 class="media-heading">${author.getUserName()}</h5>
                     <ul class="list-unstyled user-info">
                         <li><a href="${author.getUrl()}">作者</a></li>
-                        <li>Last Access :
-                            <br>
-                            <small>
-                                <i class="fa fa-calendar"></i>&nbsp;${author.getLastLoginTimeStr()}</small>
-                        </li>
                     </ul>
                 </div>
-
             </div>
         </div>
 
@@ -174,7 +168,7 @@
                 <ul>
                     #foreach($tag in $tags)
                         <li>
-                            <a href="#">
+                            <a href="${contextPath}/blog_tag/${author.getUserName()}/${tag}">
                                 <i class="fa fa-angle-right"></i><span class="link-title">&nbsp;${tag}</span>
                             </a>
                         </li>
@@ -182,12 +176,6 @@
                 </ul>
             </li>
             #if($isAuthor)
-                <li>
-                    <a href="${contextPath}/table/list">
-                        <i class="fa fa-table"></i>
-                        <span class="link-title">Tables</span>
-                    </a>
-                </li>
                 <li>
                     <a href="${contextPath}/file/list">
                         <i class="fa fa-file"></i>
@@ -224,15 +212,19 @@
                 </a>
                 <ul>
                     <li>
+                        <a href="https://github.com/zoowii" title="Github">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="link-titl">&nbsp;Github</span>
+                        </a>
                         #foreach($outLink in $outLinks)
-                            <a href="${outLink.url}" title="${outLink.getTitle()}">
+                            <a href="${outLink.getUrl()}" title="${outLink.getTitle()}">
                                 <i class="fa fa-angle-right"></i>
                             <span class="link-titl">
                                 &nbsp;
                                 #if(${outLink.getName()})
-                                    ${outLink.name}
+                                    ${outLink.getName()}
                                 #else
-                                    ${outLink.url}
+                                    ${outLink.getUrl()}
                                 #end
                             </span>
                             </a>

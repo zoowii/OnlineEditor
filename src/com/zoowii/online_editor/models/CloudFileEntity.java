@@ -1,6 +1,7 @@
 package com.zoowii.online_editor.models;
 
 import com.zoowii.jpa_utils.orm.Model;
+import com.zoowii.jpa_utils.util.StringUtil;
 import com.zoowii.online_editor.finders.CloudFileFinder;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "cloud_file")
+@Cacheable(false)
 public class CloudFileEntity extends Model {
     public static final CloudFileFinder find = new CloudFileFinder(Long.class, CloudFileEntity.class);
     @Id
@@ -29,6 +31,7 @@ public class CloudFileEntity extends Model {
     private Boolean isPrivate = true;
     private String mimeType = "text/plain; charset=UTF-8";
     private String encoding = "UTF-8";
+    private String tagsString = "";
     @Column(nullable = false)
     @Lob
     private String content = "";
@@ -185,5 +188,19 @@ public class CloudFileEntity extends Model {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Transient
+    public List<String> getTags() {
+        return FileTagMappingEntity.getSession().findListByQuery(String.class,
+                String.format("select distinct ft.tag.name from FileTagMappingEntity ft where ft.file.id=%d", this.getId()));
+    }
+
+    public String getTagsString() {
+        return tagsString;
+    }
+
+    public void setTagsString(String tagsString) {
+        this.tagsString = tagsString;
     }
 }

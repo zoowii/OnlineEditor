@@ -58,8 +58,10 @@
             <div class="success-msg inline-alert alert alert-success" style="display: none">
                 Well done! You successfully read this important alert message.
             </div>
+            <div>
+                标签(空格分隔): <input type="text" class="fileTagsField" value="${file.getTagsString()}"/>
+            </div>
         </div>
-
         <div class="panel-body">
             <div id="file-editor">${file.getContent()}</div>
         </div>

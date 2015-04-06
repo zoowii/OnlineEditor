@@ -17,12 +17,14 @@ $(function () {
     $('.save-btn').click(function () {
         var content = editor.getValue();
         var mimeType = $(".mimetype-select").val();
+        var tags = $(".fileTagsField").val().trim();
         console.log(content);
         $.post(updateFileUrl, {
             id: fileId,
             version: fileVersion,
             content: content,
-            mimeType: mimeType
+            mimeType: mimeType,
+            tags: tags
         }, function (json) {
             if (json.success) {
                 showMsg("Saved Successfully!");

@@ -21,6 +21,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import zuice.annotations.Autowired;
 
 import javax.annotation.Nullable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -40,11 +42,53 @@ public class BlogController extends CController {
     private ICloudFileService cloudFileService;
 
     private static final String DEFAULT_AUTHOR_NAME = "zoowii";
-    private static final String DEFAULT_BLOG_SITE_TITLE = "专业闭关三十年";
 
     @Route("/blog")
     public ActionResult indexOfDefault(HttpServletRequestWrapper request) {
         return index(request, DEFAULT_AUTHOR_NAME);
+    }
+
+    @Route("/blog_tag/:authorName/:tag")
+    public ActionResult listOfTag(HttpServletRequestWrapper request, String authorName, String tagName) {
+        try {
+            tagName = URLDecoder.decode(tagName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+
+        }
+        AccountEntity author = AccountEntity.findByUserNameOrEmail(authorName);
+        if(author == null) {
+            flash("error", "Can't find author " + authorName);
+            return redirectToIndex();
+        }
+        AccountEntity currentUser = currentUser();
+        Paginator paginator = new Paginator();
+        paginator.setPage(Common.tryParseInt(request.getParameter("page"), 1));
+        paginator.setPageSize(Common.tryParseInt(request.getParameter("page_size"), 20));
+        paginator = paginator.eq("author", author).eq("deleted", false).like("tagsString", "%" + tagName + "%");
+        paginator.getOrders().add(Pair.of("lastUpdatedTime", false));
+        List<BlogArticle> articles = ListUtils.map(CloudFileEntity.find.findByPaginator(paginator), new Function<CloudFileEntity, BlogArticle>() {
+            @Override
+            public BlogArticle apply(@Nullable CloudFileEntity cloudFileEntity) {
+                return parseArticle(cloudFileEntity);
+            }
+        });
+        List<String> tags = getTagsOfBlogAuthor(author);
+        BlogMetaInfoEntity blogMetaInfoEntity = BlogMetaInfoEntity.getBlogMetaInfoOfUser(author);
+        String blogSiteTitle = blogMetaInfoEntity.getSiteTitle();
+        if(blogSiteTitle == null) {
+            blogSiteTitle = "Blog Title";
+        }
+        List<BlogOutLinkEntity> outLinks = getOutLinksOfBlogAuthor(author);
+        RenderContext ctx = getBaseRenderContext();
+        ctx.put("articles", articles);
+        ctx.put("outLinks", outLinks);
+        ctx.put("paginator", paginator);
+        ctx.put("author", author);
+        ctx.put("blogTitle", blogSiteTitle);
+        ctx.put("tags", tags);
+        ctx.put("metaInfo", blogMetaInfoEntity);
+        ctx.put("isAuthor", author == currentUser);
+        return ok(renderFactory.create("blog/index.vm").render(ctx));
     }
 
     @Route("/blog/:authorName")
@@ -67,8 +111,9 @@ public class BlogController extends CController {
             }
         });
         List<String> tags = getTagsOfBlogAuthor(author);
-        String blogSiteTitle = DEFAULT_BLOG_SITE_TITLE;
-        if(blogSiteTitle == null) { // TODO
+        BlogMetaInfoEntity blogMetaInfoEntity = BlogMetaInfoEntity.getBlogMetaInfoOfUser(author);
+        String blogSiteTitle = blogMetaInfoEntity.getSiteTitle();
+        if(blogSiteTitle == null) {
             blogSiteTitle = "Blog Title";
         }
         List<BlogOutLinkEntity> outLinks = getOutLinksOfBlogAuthor(author);
@@ -79,7 +124,7 @@ public class BlogController extends CController {
         ctx.put("author", author);
         ctx.put("blogTitle", blogSiteTitle);
         ctx.put("tags", tags);
-        ctx.put("metaInfo", new Object()); // TODO
+        ctx.put("metaInfo", blogMetaInfoEntity);
         ctx.put("isAuthor", author == currentUser);
         return ok(renderFactory.create("blog/index.vm").render(ctx));
     }
@@ -130,8 +175,9 @@ public class BlogController extends CController {
         List<String> tags = getTagsOfBlogAuthor(author);
         BlogArticle article = parseArticle(file);
         List<BlogOutLinkEntity> outLinks = getOutLinksOfBlogAuthor(author);
-        String blogSiteTitle = DEFAULT_BLOG_SITE_TITLE;
-        if(blogSiteTitle == null) { // TODO
+        BlogMetaInfoEntity blogMetaInfoEntity = BlogMetaInfoEntity.getBlogMetaInfoOfUser(author);
+        String blogSiteTitle = blogMetaInfoEntity.getSiteTitle();
+        if(blogSiteTitle == null) {
             blogSiteTitle = "Blog Title";
         }
         RenderContext ctx = getBaseRenderContext();
@@ -141,7 +187,7 @@ public class BlogController extends CController {
         ctx.put("blogTitle", blogSiteTitle);
         ctx.put("tags", tags);
         ctx.put("isAuthor", author == currentUser());
-        ctx.put("metaInfo", new Object()); // TODO
+        ctx.put("metaInfo", blogMetaInfoEntity);
         return ok(renderFactory.create("blog/view.vm").render(ctx));
     }
 

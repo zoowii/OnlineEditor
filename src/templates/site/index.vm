@@ -36,9 +36,6 @@
                 <li>
                     <a href="${contextPath}/bucket">Buckets</a>
                 </li>
-                <li>
-                    <a href="${contextPath}/table/create">DataStore</a>
-                </li>
             </ol>
         </div>
 

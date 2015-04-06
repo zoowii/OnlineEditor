@@ -7,9 +7,7 @@ import com.zoowii.jpa_utils.extension.Paginator;
 import com.zoowii.online_editor.forms.AjaxResponse;
 import com.zoowii.online_editor.forms.CreateCloudFileForm;
 import com.zoowii.online_editor.forms.CreateOrUpdateCloudFileForm;
-import com.zoowii.online_editor.models.AccountEntity;
-import com.zoowii.online_editor.models.BucketEntity;
-import com.zoowii.online_editor.models.CloudFileEntity;
+import com.zoowii.online_editor.models.*;
 import com.zoowii.online_editor.security.Secured;
 import com.zoowii.online_editor.services.ICloudFileService;
 import com.zoowii.online_editor.services.IMarkDownService;
@@ -26,6 +24,7 @@ import zuice.annotations.Autowired;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zoowii on 15/4/4.
@@ -195,14 +194,30 @@ public class FileController extends CController {
         if(fileEntity.getFileVersion() > createOrUpdateCloudFileForm.getVersion()) {
             return json(new AjaxResponse(false, "You file version is too old, please reflesh it"));
         }
+        Set<String> newTagsSet = createOrUpdateCloudFileForm.getTagsSet();
         if(!fileEntity.getContent().equals(createOrUpdateCloudFileForm.getContent())
-                || !fileEntity.getMimeType().equals(createOrUpdateCloudFileForm.getMimeType())) {
+                || !fileEntity.getMimeType().equals(createOrUpdateCloudFileForm.getMimeType())
+                || !(fileEntity.getTags().containsAll(newTagsSet) && newTagsSet.containsAll(fileEntity.getTags()))) {
             fileEntity.setMimeType(createOrUpdateCloudFileForm.getMimeType());
             fileEntity.setContent(createOrUpdateCloudFileForm.getContent());
             fileEntity.setFileVersion(fileEntity.getFileVersion());
             fileEntity.setLastUpdatedTime(new Date());
+            fileEntity.setTagsString(createOrUpdateCloudFileForm.getTags().trim());
             fileEntity.update();
             cloudFileService.addFileChangeLog(fileEntity);
+            for(FileTagMappingEntity fileTagMappingEntity : FileTagMappingEntity.find.where().eq("file", fileEntity).all()) {
+                fileTagMappingEntity.delete();
+            }
+            for(String tagStr : createOrUpdateCloudFileForm.getTagsSet()) {
+                FileTagEntity fileTagEntity = new FileTagEntity();
+                fileTagEntity.setName(tagStr);
+                fileTagEntity.save();
+                FileTagMappingEntity fileTagMappingEntity = new FileTagMappingEntity();
+                fileTagMappingEntity.setFile(fileEntity);
+                fileTagMappingEntity.setOwner(fileEntity.getAuthor());
+                fileTagMappingEntity.setTag(fileTagEntity);
+                fileTagMappingEntity.save();
+            }
         }
         JSONObject fileJson = new JSONObject();
         fileJson.put("id", fileEntity.getId());

@@ -1,4 +1,4 @@
-#parse("templates/layouts/main_header.vm")
+#parse("templates/layouts/blogsite_header.vm")
 
 <title>${blogTitle}</title>
 <link rel="stylesheet" href="${contextPath}/static/css/blog/article.css"/>
@@ -6,7 +6,7 @@
 <blockquote>
     <p>
         #foreach($tag in $article.getTags())
-            <span class="label label-primary">${tag}</span>
+            <a class="label label-primary" href="${contextPath}/blog_tag/${author.getUserName()}/${tag}">${tag}</a>
         #end
     </p>
 
@@ -52,4 +52,4 @@
 <!-- 多说公共JS代码 end -->
 </div>
 
-#parse("templates/layouts/main_footer.vm")
+#parse("templates/layouts/blogsite_footer.vm")
